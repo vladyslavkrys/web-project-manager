@@ -1,4 +1,4 @@
-package com.spring.manager.exception;
+package com.spring.manager.exception.response;
 
 public class ProjectIdentifierExceptionResponse {
     private String projectIdentifier;

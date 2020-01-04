@@ -24,7 +24,6 @@ import javax.validation.Valid;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
-
     @Autowired
     private ValidationService validationService;
 

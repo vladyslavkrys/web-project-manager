@@ -1,5 +1,9 @@
-package com.spring.manager.exception;
+package com.spring.manager.exception.handler;
 
+import com.spring.manager.exception.ProjectIdentifierException;
+import com.spring.manager.exception.ProjectNotFoundException;
+import com.spring.manager.exception.response.ProjectIdentifierExceptionResponse;
+import com.spring.manager.exception.response.ProjectNotFoundExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,5 +19,11 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     public final ResponseEntity<Object> handleProjectIdException(ProjectIdentifierException ex, WebRequest request) {
         ProjectIdentifierExceptionResponse exceptionResponse = new ProjectIdentifierExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleProjectNotFoundException(ProjectNotFoundException ex, WebRequest request) {
+        ProjectNotFoundExceptionResponse projectNotFoundExceptionResponse = new ProjectNotFoundExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(projectNotFoundExceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }
