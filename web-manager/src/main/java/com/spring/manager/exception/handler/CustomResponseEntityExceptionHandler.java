@@ -1,7 +1,9 @@
 package com.spring.manager.exception.handler;
 
+import com.spring.manager.exception.EmailHasDuplicateException;
 import com.spring.manager.exception.ProjectIdentifierException;
 import com.spring.manager.exception.ProjectNotFoundException;
+import com.spring.manager.exception.response.EmailHasDuplicateExceptionResponse;
 import com.spring.manager.exception.response.ProjectIdentifierExceptionResponse;
 import com.spring.manager.exception.response.ProjectNotFoundExceptionResponse;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,12 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     @ExceptionHandler
     public final ResponseEntity<Object> handleProjectNotFoundException(ProjectNotFoundException ex, WebRequest request) {
         ProjectNotFoundExceptionResponse projectNotFoundExceptionResponse = new ProjectNotFoundExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(projectNotFoundExceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleEmailHasDuplicateException(EmailHasDuplicateException ex, WebRequest request) {
+        EmailHasDuplicateExceptionResponse projectNotFoundExceptionResponse = new EmailHasDuplicateExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(projectNotFoundExceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }

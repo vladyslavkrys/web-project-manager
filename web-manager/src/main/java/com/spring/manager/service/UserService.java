@@ -1,6 +1,7 @@
 package com.spring.manager.service;
 
 import com.spring.manager.domain.User;
+import com.spring.manager.exception.EmailHasDuplicateException;
 import com.spring.manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,13 +15,16 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
         // username has to be unique (exception)
+        try {
+            String bCryptPassword = bCryptPasswordEncoder.encode(user.getPassword());
 
-        // make sure that password and confirm password match
+            user.setPassword(bCryptPassword);
+            user.setConfirmPassword(bCryptPassword);
 
-        // we don't persist or show the confirm password
-        return userRepository.save(user);
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new EmailHasDuplicateException("Email '".concat(user.getUsername()).concat("' already exists"));
+        }
     }
 }

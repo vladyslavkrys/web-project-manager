@@ -3,6 +3,7 @@ package com.spring.manager.web;
 import com.spring.manager.domain.User;
 import com.spring.manager.service.UserService;
 import com.spring.manager.service.ValidationService;
+import com.spring.manager.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,14 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
+    private UserValidator userValidator;
+    @Autowired
     private ValidationService validationService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
         // validate passwords match
+        userValidator.validate(user, result);
 
         ResponseEntity<?> errorMap = validationService.MapValidationService(result);
         if (errorMap != null) {
