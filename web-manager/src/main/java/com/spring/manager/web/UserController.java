@@ -3,7 +3,7 @@ package com.spring.manager.web;
 import com.spring.manager.domain.User;
 import com.spring.manager.paylaod.JSWTLoginSuccessResponse;
 import com.spring.manager.paylaod.LoginRequest;
-import com.spring.manager.security.JWTTokenProvider;
+import com.spring.manager.security.JwtTokenProvider;
 import com.spring.manager.service.UserService;
 import com.spring.manager.service.ValidationService;
 import com.spring.manager.validator.UserValidator;
@@ -32,7 +32,7 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
     @Autowired
-    private JWTTokenProvider jwtTokenProvider;
+    private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private ValidationService validationService;
     @Autowired
