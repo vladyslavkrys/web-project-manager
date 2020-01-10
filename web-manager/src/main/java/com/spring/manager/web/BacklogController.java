@@ -1,6 +1,5 @@
 package com.spring.manager.web;
 
-import com.spring.manager.domain.Project;
 import com.spring.manager.domain.ProjectTask;
 import com.spring.manager.service.ProjectTaskService;
 import com.spring.manager.service.ValidationService;
